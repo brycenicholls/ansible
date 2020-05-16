@@ -5,44 +5,6 @@
     - name: include variables
       include_vars: vars.yml
 
- 
-    - name: Add epel repository
-      yum_repository:
-        name: epel
-        description: EPEL YUM repo
-        baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
-
-
-    - name: Install yum utils
-      yum:
-        name: yum-utils
-        state: latest
-        become: yes 
-
-    - name: Add Docker repo
-      get_url:
-        url: https://download.docker.com/linux/centos/docker-ce.repo
-        dest: /etc/yum.repos.d/docer-ce.repo
-      become: yes
-
-    - name: Install Docker
-      package:
-        name: docker-ce
-        state: latest
-      become: yes
-
-    - name: Start Docker service
-      service:
-        name: docker
-        state: started
-        enabled: yes
-      become: yes
-
-    - name: Install python-docker on Red Hat based distribution
-      yum:
-       name: docker
-       enablerepo: extras
-       state: latest
     - name: Create Container
       docker_container:
         name: "{{ name }}"
@@ -56,6 +18,18 @@
           WATCHTOWER_CLEANUP: "true"
           WATCHTOWER_NO_RESTART: "false"
         privileged: "{{ privileged }}"
+    
+    - name: Create SABnzbd container
+      docker_container:
+        name: sabnzbd
+        recreate: true
+        #restart_policy: unless-stopped
+        image: sabnzbd/sabnzbd
+        volumes:
+          - /downloads:/media
+          - /sabdata:/datadir 
+        ports:
+          - "8080:8080"     
     - name: check container status
       command: docker ps
       register: result
