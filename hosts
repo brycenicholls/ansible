@@ -1,0 +1,6 @@
+[pi]
+10.1.1.2
+
+[pi:vars]
+#ansible_python_interpreter=/usr/bin/python3
+ansible_python_interpreter=/usr/bin/python2.7
