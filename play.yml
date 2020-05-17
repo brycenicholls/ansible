@@ -27,8 +27,8 @@
           - downloads:/downloads
           - sab_config:/config 
         env:
-          PUID: "0"
-          GUID: "0" 
+          PUID: "1001"
+          GUID: "1001" 
         ports:
           - "8080:8080"  
         privileged: "{{ privileged }}"
@@ -42,8 +42,8 @@
           - tv:/tv
           - downloads:/downloads
         env:
-          PUID: "0"
-          GUID: "0"  
+          PUID: "1001"
+          GUID: "1001"  
         ports:
           - "8989:8989"  
         privileged: "{{ privileged }}"
@@ -57,8 +57,8 @@
           - downloads:/downloads
           - movies:/movies
         env:
-          PUID: "0"
-          GUID: "0"    
+          PUID: "1001"
+          GUID: "1001"    
         ports:
           - "7878:7878"  
         privileged: "{{ privileged }}"        
