@@ -45,7 +45,7 @@
           PUID: "1001"
           GUID: "1001"  
         ports:
-          - "8989:8989"  
+          - "0.0.0.0:8989:8989"  
         privileged: "{{ privileged }}"
 
     - name: Create radarr container
@@ -60,7 +60,7 @@
           PUID: "1001"
           GUID: "1001"    
         ports:
-          - "7878:7878"  
+          - "0.0.0.0:7878:7878"  
         privileged: "{{ privileged }}"        
 
     - name: check container status
