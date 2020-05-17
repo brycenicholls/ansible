@@ -5,7 +5,7 @@
     - name: include variables
       include_vars: vars.yml
 
-    - name: Create Container
+    - name: Create Watchtower Container
       docker_container:
         name: "{{ name }}"
         image: "{{ image }}"
@@ -22,14 +22,47 @@
     - name: Create SABnzbd container
       docker_container:
         name: sabnzbd
-        recreate: true
-        #restart_policy: unless-stopped
-        image: sabnzbd/sabnzbd
+        image: linuxserver/sabnzbd
         volumes:
-          - /downloads:/media
-          - /sabdata:/datadir 
+          - downloads:/downloads
+          - sab_config:/config 
+        env:
+          PUID: "0"
+          GUID: "0" 
         ports:
-          - "8080:8080"     
+          - "8080:8080"  
+        privileged: "{{ privileged }}"
+
+    - name: Create sonarr container
+      docker_container:
+        name: sonarr
+        image: linuxserver/sonarr
+        volumes:
+          - sonarr_config:/config
+          - tv:/tv
+          - downloads:/downloads
+        env:
+          PUID: "0"
+          GUID: "0"  
+        ports:
+          - "8989:8989"  
+        privileged: "{{ privileged }}"
+
+    - name: Create radarr container
+      docker_container:
+        name: radarr
+        image: linuxserver/radarr
+        volumes:
+          - radarr_config:/config
+          - downloads:/downloads
+          - movies:/movies
+        env:
+          PUID: "0"
+          GUID: "0"    
+        ports:
+          - "7878:7878"  
+        privileged: "{{ privileged }}"        
+
     - name: check container status
       command: docker ps
       register: result
