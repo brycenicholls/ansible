@@ -24,8 +24,8 @@
         name: sabnzbd
         image: linuxserver/sabnzbd
         volumes:
-          - downloads:/downloads
-          - sab_config:/config 
+          - /home/bnicholls/downloads:/downloads
+          - /home/bnicholls/sab_config:/config 
         env:
           PUID: "1001"
           GUID: "1001" 
@@ -38,9 +38,9 @@
         name: sonarr
         image: linuxserver/sonarr
         volumes:
-          - sonarr_config:/config
-          - tv:/tv
-          - downloads:/downloads
+          - /home/bnicholls/sonarr_config:/config
+          - /home/bnicholls/tv:/tv
+          - /home/bnicholls/downloads:/downloads
         env:
           PUID: "1001"
           GUID: "1001"  
@@ -53,9 +53,9 @@
         name: radarr
         image: linuxserver/radarr
         volumes:
-          - radarr_config:/config
-          - downloads:/downloads
-          - movies:/movies
+          - /home/bnicholls/radarr_config:/config
+          - /home/bnicholls/downloads:/downloads
+          - /home/bnicholls/movies:/movies
         env:
           PUID: "1001"
           GUID: "1001"    
